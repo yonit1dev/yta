@@ -13,7 +13,7 @@ export default function BlogPage() {
       <div className="container max-w-3xl mx-auto px-4 py-8 md:py-12">
         <div className="mb-8">
           <Link href="/">
-            <Button variant="ghost" size="sm" className="gap-2">
+            <Button variant="ghost" size="sm" className="!px-0">
               <ArrowLeft size={16} />
               Back to Home
             </Button>

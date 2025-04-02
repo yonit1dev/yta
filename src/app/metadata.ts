@@ -18,11 +18,20 @@ export const metadata: Metadata = {
     siteName: "Yonathan Tessema",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Yonathan Tessema",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Yonathan | Discovering Tech and Business",
     description: "Personal page of Yonathan, sharing experiences",
     creator: "@yonathananosie",
+    images: ["/og.jpg"],
   },
 };

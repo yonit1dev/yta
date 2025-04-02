@@ -78,34 +78,30 @@ export default function Navigation() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm border-b border-zinc-800">
         <div className="container max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="logo-text">
-            yonathan
-          </Link>
-
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-16">
             <NavLink
-              href="#about"
+              href="/#about"
               onClick={handleLinkClick}
               isActive={activeSection === "about"}
             >
               About
             </NavLink>
             <NavLink
-              href="#projects"
+              href="/#projects"
               onClick={handleLinkClick}
               isActive={activeSection === "projects"}
             >
               Projects
             </NavLink>
             <NavLink
-              href="#blog"
+              href="/blog"
               onClick={handleLinkClick}
               isActive={activeSection === "blog"}
             >
               Blog
             </NavLink>
             <NavLink
-              href="#connect"
+              href="/#connect"
               onClick={handleLinkClick}
               isActive={activeSection === "connect"}
             >
@@ -158,7 +154,7 @@ export default function Navigation() {
           )}
         >
           <NavLink
-            href="#about"
+            href="/#about"
             onClick={handleLinkClick}
             className="text-2xl font-light tracking-wide"
             isActive={activeSection === "about"}
@@ -166,7 +162,7 @@ export default function Navigation() {
             About
           </NavLink>
           <NavLink
-            href="#projects"
+            href="/#projects"
             onClick={handleLinkClick}
             className="text-2xl font-light tracking-wide"
             isActive={activeSection === "projects"}
@@ -174,7 +170,7 @@ export default function Navigation() {
             Projects
           </NavLink>
           <NavLink
-            href="#blog"
+            href="/blog"
             onClick={handleLinkClick}
             className="text-2xl font-light tracking-wide"
             isActive={activeSection === "blog"}
@@ -182,7 +178,7 @@ export default function Navigation() {
             Blog
           </NavLink>
           <NavLink
-            href="#connect"
+            href="/#connect"
             onClick={handleLinkClick}
             className="text-2xl font-light tracking-wide"
             isActive={activeSection === "connect"}
@@ -212,7 +208,9 @@ function NavLink({
     <Link
       href={href}
       className={cn(
-        "transition-all duration-300",
+        "transition-all duration-300 relative",
+        "after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-white",
+        "after:w-0 hover:after:w-full after:transition-all after:duration-300",
         isActive ? "text-white font-medium" : "text-zinc-400 hover:text-white",
         className
       )}

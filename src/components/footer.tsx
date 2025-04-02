@@ -6,7 +6,6 @@ export default function Footer() {
       <Separator className="my-12 bg-zinc-800" />
       <footer className="text-center text-zinc-500 text-sm animate-fade-in">
         <p className="mb-1">Addis Ababa, Ethiopia</p>
-        <p>© {new Date().getFullYear()} YTA. All rights reserved.</p>
       </footer>
     </>
   );

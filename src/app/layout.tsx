@@ -24,10 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark scroll-smooth">
-      <body
-        className={`${dmSans.variable} ${spaceGrotesk.variable} font-sans antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning className={`dark scroll-smooth ${spaceGrotesk.variable} font-grotesk`}>
+      <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
