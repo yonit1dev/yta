@@ -1,0 +1,69 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const canonicalPath = `/blog/${post.id}`;
+
+const formatDate = (date: Date) => new Intl.DateTimeFormat("en", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+}).format(date);
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishedAt.toISOString(),
+  dateModified: (post.data.updatedAt ?? post.data.publishedAt).toISOString(),
+  mainEntityOfPage: `${site.url}${canonicalPath}`,
+  image: `${site.url}/og.png`,
+  author: {
+    "@type": "Person",
+    name: site.name,
+    url: site.url,
+  },
+};
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  canonicalPath={canonicalPath}
+  type="article"
+  publishedAt={post.data.publishedAt}
+  updatedAt={post.data.updatedAt}
+  structuredData={articleSchema}
+>
+  <a class="article-back" href="/blog">← All writing</a>
+  <article>
+    <header class="article-header" data-reveal="1">
+      <span class="eyebrow">Essay</span>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.description}</p>
+      <div class="meta">
+        <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+        <ul class="tag-list" aria-label="Topics">
+          {post.data.tags.map((tag) => <li>{tag}</li>)}
+        </ul>
+      </div>
+    </header>
+    <div class="prose section" data-reveal="2">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

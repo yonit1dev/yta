@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site } from "@/data/site";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const formatDate = (date: Date) => new Intl.DateTimeFormat("en", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  timeZone: "UTC",
+}).format(date);
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: `${site.name} — Writing`,
+  description: "Notes on software architecture, product design, education, finance, and building for real-world constraints.",
+  url: `${site.url}/blog`,
+  author: { "@type": "Person", name: site.name, url: site.url },
+};
+---
+
+<BaseLayout
+  title="Writing"
+  description="Notes by Yonathan Anosie on software architecture, product design, education, finance, and building for real-world constraints."
+  canonicalPath="/blog"
+  structuredData={blogSchema}
+>
+  <header class="page-heading" data-reveal="1">
+    <span class="eyebrow">Writing</span>
+    <h1>Notes from the work.</h1>
+    <p>Architecture, product design, education, finance, and the practical details that decide whether software works in the real world.</p>
+  </header>
+
+  <section class="post-list" aria-label="Published articles" data-reveal="2">
+    {
+      posts.map((post) => (
+        <a class="post-row" href={`/blog/${post.id}`}>
+          <div>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+          </div>
+          <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+        </a>
+      ))
+    }
+  </section>
+</BaseLayout>
