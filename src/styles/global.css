@@ -38,6 +38,19 @@
   --measure: 43rem;
 }
 
+:root[data-theme="light"] {
+  color-scheme: light;
+  --canvas: oklch(0.955 0.009 82);
+  --surface: oklch(0.925 0.01 82);
+  --ink: oklch(0.245 0.01 82);
+  --ink-soft: oklch(0.34 0.01 82);
+  --muted: oklch(0.43 0.01 82);
+  --quiet: oklch(0.5 0.01 82);
+  --line: oklch(0.84 0.01 82);
+  --accent: oklch(0.47 0.075 75);
+  --accent-bright: oklch(0.36 0.07 75);
+}
+
 *,
 *::before,
 *::after {
@@ -61,6 +74,12 @@ body {
   line-height: 1.65;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+body,
+.ambient,
+.theme-toggle {
+  transition: background-color 180ms ease-out, color 180ms ease-out;
 }
 
 ::selection {
@@ -178,6 +197,45 @@ p {
 .site-header nav a:hover,
 .site-header nav a[aria-current="page"] {
   color: var(--ink-soft);
+}
+
+.theme-toggle {
+  display: inline-grid;
+  width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--quiet);
+  cursor: pointer;
+}
+
+.theme-toggle[hidden] {
+  display: none;
+}
+
+.theme-toggle:hover {
+  color: var(--ink-soft);
+}
+
+.theme-icon {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.theme-icon-moon,
+:root[data-theme="light"] .theme-icon-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-icon-moon {
+  display: block;
 }
 
 main {
@@ -574,5 +632,6 @@ main {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
